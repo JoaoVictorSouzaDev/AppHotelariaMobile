@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AppHotelariaMobile",
-    "slug": "AppHotelariaMobile",
+    "name": "appHotel",
+    "slug": "appHotel",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
