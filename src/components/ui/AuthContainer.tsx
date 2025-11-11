@@ -16,14 +16,17 @@ export default function AuthContainer({title, subtitle, icon, /*children*/}: Pro
         <SafeAreaView style={global.safeArea}>
             <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={global.keyboardAvoid}>
                 <ScrollView style={global.container}>
+
                     <View style={global.header}>
-                        {!!icon && <FontAwesome5 name={icon} size={25} color="#4b0505" style={global.hotelIcon}/>} 
+                        {!!icon && <FontAwesome5 name={icon} style={global.hotelIcon}/>} 
                         <Text style={global.title}>{title}</Text>
                         {!!subtitle && <Text style={global.subTitle}>{subtitle}</Text>}
                     </View>
+
                     <View style={global.content}>
 
                     </View>
+
                 </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>

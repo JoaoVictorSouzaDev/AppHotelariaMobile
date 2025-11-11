@@ -26,13 +26,13 @@ export const global = StyleSheet.create({
     },
 
     title: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: "600",
         marginTop: height * 0.006
     },
 
     subTitle: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: "500"
     },
 
@@ -47,7 +47,8 @@ export const global = StyleSheet.create({
     },
 
     hotelIcon: {
-        fontSize: 42
+        fontSize: 42,
+        color: "#4b0505"
     }
 
 });

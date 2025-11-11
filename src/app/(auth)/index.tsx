@@ -1,4 +1,3 @@
-/* Login */
 
 import AuthContainer from "@/components/ui/AuthContainer";
 
