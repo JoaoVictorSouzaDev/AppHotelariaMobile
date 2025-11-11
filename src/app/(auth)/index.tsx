@@ -1,12 +1,8 @@
-
-import AuthContainer from "@/components/ui/AuthContainer";
+import { RenderLogin } from "@/components/login";
+import { View  } from "react-native";
 
 export default function Login() {
     return (
-        <AuthContainer
-            title="Bem-Vindo"
-            subtitle="Faça seu login para continuar!"
-            icon="hotel">
-        </AuthContainer>
+        <RenderLogin />
     );
 }

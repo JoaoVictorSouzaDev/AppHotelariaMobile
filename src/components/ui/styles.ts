@@ -26,24 +26,23 @@ export const global = StyleSheet.create({
     },
 
     title: {
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: "600",
         marginTop: height * 0.006
     },
 
     subTitle: {
-        fontSize: 14,
-        fontWeight: "500"
+        fontSize: 18,
+        fontWeight: "600",
     },
 
     content: {
-        backgroundColor: "#f3f3f3f3",
+        backgroundColor: "#f3f3f3ff",
         borderRadius: 10,
         padding: width * 0.02,
         shadowColor: "#000000ff",
-        shadowRadius: 100,
-        elevation: 18
-
+        elevation: 18,
+        alignItems: "center"
     },
 
     hotelIcon: {
