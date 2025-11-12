@@ -1,3 +1,4 @@
+import { Label } from "@react-navigation/elements";
 import { Dimensions, StyleSheet } from "react-native";
 
 //Dimensions
@@ -7,7 +8,7 @@ export const global = StyleSheet.create({
 
     safeArea: {
         flex: 1,
-        backgroundColor: "#fff"
+        backgroundColor: "#FFFFFFF"
     },
 
     keyboardAvoid: {
@@ -22,7 +23,7 @@ export const global = StyleSheet.create({
 
     header: {
         alignItems: "center",
-        marginBottom: height * 0.03
+        marginBottom: height * 0.02
     },
 
     title: {
@@ -32,22 +33,66 @@ export const global = StyleSheet.create({
     },
 
     subTitle: {
-        fontSize: 18,
-        fontWeight: "600",
+        fontSize: 24,
+        fontWeight: "700",
+        alignSelf: "center",
+        marginTop: height * 0.01
     },
 
     content: {
-        backgroundColor: "#f3f3f3ff",
+        display: "flex",
+        backgroundColor: "#f3f3f3",
         borderRadius: 10,
         padding: width * 0.02,
         shadowColor: "#000000ff",
         elevation: 18,
-        alignItems: "center"
     },
 
     hotelIcon: {
         fontSize: 42,
         color: "#4b0505"
-    }
+    },
 
+    inputGroup: {
+        marginBottom: height * 0.02,
+        marginTop: height * 0.02,
+        marginLeft: height * 0.01,
+        marginRight: height * 0.01
+    },
+
+    label: {
+        fontSize: 16,
+        fontWeight: "600",
+        color: "#141414ff",
+        marginBottom: height * 0.01
+    },
+
+    inputIcon: {
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#fff",
+        paddingLeft: width * 0.02,
+        borderWidth: 2,
+        borderColor: "#4b0505",
+        borderRadius: 10
+    },
+
+    inputError: {
+        backgroundColor: "#ff9292ff",
+        borderColor: "red"
+    },
+
+    input: {
+        flex: 1,
+        fontSize: 17,
+        color: "#000",
+        fontWeight: "500",
+        paddingHorizontal: width * 0.02
+    },
+
+    errorText: {
+        color: "red",
+        fontSize: 12,
+        marginTop: height * 0.005
+    }
 });

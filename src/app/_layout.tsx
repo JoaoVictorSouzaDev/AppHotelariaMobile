@@ -2,6 +2,8 @@
 
 import { Slot } from "expo-router";
 
-export default function RootLayout() {
+const RootLayout = () => {
     return <Slot/>
 }
+
+export default RootLayout;
