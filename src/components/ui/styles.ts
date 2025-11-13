@@ -1,8 +1,7 @@
-import { Label } from "@react-navigation/elements";
 import { Dimensions, StyleSheet } from "react-native";
 
-//Dimensions
 const { width, height } = Dimensions.get("window");
+
 
 export const global = StyleSheet.create({
 
@@ -18,7 +17,7 @@ export const global = StyleSheet.create({
     container: {
         paddingHorizontal: width * 0.07,
         paddingTop: height * 0.05,
-        paddingBottom: height * 0.04
+        paddingBottom: height * 0.05
     },
 
     header: {
@@ -27,22 +26,22 @@ export const global = StyleSheet.create({
     },
 
     title: {
-        fontSize: 22,
-        fontWeight: "600",
-        marginTop: height * 0.006
+        fontSize: 24,
+        fontWeight: "700",
+        marginTop: height * 0.006,
     },
 
     subTitle: {
         fontSize: 24,
         fontWeight: "700",
         alignSelf: "center",
-        marginTop: height * 0.01
+        marginTop: height * 0.01,
     },
 
     content: {
         display: "flex",
         backgroundColor: "#f3f3f3",
-        borderRadius: 10,
+        borderRadius: 20,
         padding: width * 0.02,
         shadowColor: "#000000ff",
         elevation: 18,
@@ -54,8 +53,8 @@ export const global = StyleSheet.create({
     },
 
     inputGroup: {
-        marginBottom: height * 0.02,
-        marginTop: height * 0.02,
+        marginBottom: height * 0.005,
+        marginTop: height * 0.01,
         marginLeft: height * 0.01,
         marginRight: height * 0.01
     },
@@ -64,7 +63,7 @@ export const global = StyleSheet.create({
         fontSize: 16,
         fontWeight: "600",
         color: "#141414ff",
-        marginBottom: height * 0.01
+        marginBottom: height * 0.005
     },
 
     inputIcon: {
