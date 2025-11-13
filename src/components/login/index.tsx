@@ -3,6 +3,7 @@ import PasswordField from "../ui/PasswordField";
 import  TextField  from "../ui/TextField";
 
 
+
 const RenderLogin = () => {
     return (
 
@@ -15,6 +16,7 @@ const RenderLogin = () => {
                 label="E-mail"
                 icon="email"
                 placeholder="email@email.com"
+                keyboardType="email-address"
             />
 
             <PasswordField
@@ -23,6 +25,7 @@ const RenderLogin = () => {
             />
 
         </AuthContainer>
+
 
 
     )

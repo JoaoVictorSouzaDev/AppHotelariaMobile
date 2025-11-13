@@ -93,5 +93,11 @@ export const global = StyleSheet.create({
         color: "red",
         fontSize: 12,
         marginTop: height * 0.005
-    }
+    },
+
+    icon: {
+        color: "#4b0505",
+        fontSize: 20
+    },
+
 });
