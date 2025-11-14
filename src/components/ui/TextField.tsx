@@ -10,7 +10,7 @@ type Props = TextInputProps & {
     rightIcon?: ReactNode;
 }
 
-const TextField = ({label, errorText, icon, rightIcon, ...props} : Props) => {
+const TextField = ({label, errorText, icon, rightIcon, style, ...props} : Props) => {
     return (
         <View style={global.inputGroup}>
             <Text style={global.label}>{label}</Text>
@@ -23,7 +23,7 @@ const TextField = ({label, errorText, icon, rightIcon, ...props} : Props) => {
                 <TextInput
                     keyboardAppearance="dark"
                     placeholderTextColor="#a7a7a7ff"
-                    style={[global.input]}
+                    style={[global.input, style]}
                     {...props}
                 />
 

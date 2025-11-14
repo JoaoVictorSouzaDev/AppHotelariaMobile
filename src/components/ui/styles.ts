@@ -7,7 +7,8 @@ export const global = StyleSheet.create({
 
     safeArea: {
         flex: 1,
-        backgroundColor: "#FFFFFFF"
+        backgroundColor: "#f3f3f3",
+        justifyContent: "center",
     },
 
     keyboardAvoid: {
@@ -36,6 +37,7 @@ export const global = StyleSheet.create({
         fontWeight: "700",
         alignSelf: "center",
         marginTop: height * 0.01,
+        marginBottom: height * 0.01,
     },
 
     content: {
@@ -99,5 +101,27 @@ export const global = StyleSheet.create({
         color: "#4b0505",
         fontSize: 20
     },
+
+    primaryButton: {
+        backgroundColor: "#4b0505",
+        borderRadius: 10,
+        padding: width * 0.025,
+        alignItems: "center",
+        marginTop: height * 0.04,
+        marginLeft: width * 0.01,
+        marginRight: width * 0.01,
+        marginBottom: height * 0.02
+    },
+
+    primaryButtonDisabled: {
+        backgroundColor: "#9ca3af",
+        borderRadius: 10,
+    },
+
+    primaryButtonText: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: 700
+    }
 
 });
