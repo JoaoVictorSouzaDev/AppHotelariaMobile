@@ -33,7 +33,7 @@ export const global = StyleSheet.create({
     },
 
     subTitle: {
-        fontSize: 24,
+        fontSize: 22,
         fontWeight: "700",
         alignSelf: "center",
         marginTop: height * 0.01,
@@ -107,9 +107,9 @@ export const global = StyleSheet.create({
         borderRadius: 10,
         padding: width * 0.025,
         alignItems: "center",
-        marginTop: height * 0.04,
-        marginLeft: width * 0.01,
-        marginRight: width * 0.01,
+        marginTop: height * 0.03,
+        marginLeft: width * 0.02,
+        marginRight: width * 0.02,
         marginBottom: height * 0.02
     },
 
@@ -122,6 +122,55 @@ export const global = StyleSheet.create({
         color: "#fff",
         fontSize: 16,
         fontWeight: 700
+    },
+    
+    defaultText: {
+        paddingLeft: width * 0.02,
+        paddingTop: width * 0.01,
+        fontSize: 14,
+        lineHeight: 15,
+        color: '#000',
+    },
+    
+    registerLinkText: {
+        fontSize: 14,
+        lineHeight: 22,
+        color: "#4b0505",
+        fontWeight: "bold"
+    },
+
+    passwordResetDeiv: {
+        alignItems: "center",
+        marginBottom: height * 0.02
+    },
+    
+    passwordReset: {
+        fontWeight: "bold",
+        color: "#4b0505",
+        fontSize: 14
+    },
+
+    text: {
+        fontSize: 14,
+        fontWeight: "500",
+        textAlign: "center"
+    },
+
+    divText: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+
+    screenContainer: {
+        flex: 1,
+    },
+
+    divTurnLeft: {
+        position: 'absolute',
+        top: 50,
+        left: 15,
+        zIndex: 10
     }
 
 });
