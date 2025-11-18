@@ -26,7 +26,7 @@ const RenderResetPassword = () => {
 
                 <View style={global.divText}>
                     <Text style={global.text}>
-                        Insira seu e-mail abaixo para receber o link de redefinição de senha.
+                        Insira seu e-mail abaixo para receber o código de redefinição de senha.
                     </Text>
                 </View>
 

@@ -8,7 +8,7 @@ export const global = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: "#f3f3f3",
-        justifyContent: "center",
+        justifyContent: "center"
     },
 
     keyboardAvoid: {
@@ -159,7 +159,9 @@ export const global = StyleSheet.create({
     divText: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        marginLeft: height * 0.01,
+        marginRight: height * 0.01
     },
 
     screenContainer: {
@@ -171,6 +173,10 @@ export const global = StyleSheet.create({
         top: 50,
         left: 15,
         zIndex: 10
+    },
+
+    tabBar: {
+        
     }
 
 });

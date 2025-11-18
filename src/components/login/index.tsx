@@ -1,9 +1,9 @@
-import { Text, TouchableOpacity, View } from "react-native";
-import  AuthContainer  from "../ui/AuthContainer";
-import PasswordField from "../ui/PasswordField";
-import  TextField  from "../ui/TextField";
-import { global } from "../ui/styles";
 import { useRouter } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
+import AuthContainer from "../ui/AuthContainer";
+import PasswordField from "../ui/PasswordField";
+import TextField from "../ui/TextField";
+import { global } from "../ui/styles";
 
 const RenderLogin = () => {
 
@@ -39,7 +39,7 @@ const RenderLogin = () => {
                 </Text>
             </View>
 
-            <TouchableOpacity style={[global.primaryButton]}>
+            <TouchableOpacity style={[global.primaryButton]} onPress={() => router.push("/(tabs)/explorer")}>
                 <Text style={global.primaryButtonText}>Entrar</Text>
             </TouchableOpacity>
             

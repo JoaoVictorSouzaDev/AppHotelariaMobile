@@ -23,7 +23,7 @@ const RenderRegister = () => {
 
             <AuthContainer
                 title="Grand Hotel Royal"
-                subtitle="Register"
+                subtitle="Cadastrar"
                 icon="hotel">
 
                 <TextField
@@ -56,7 +56,7 @@ const RenderRegister = () => {
                 />
 
                 <TouchableOpacity style={[global.primaryButton]}>
-                    <Text style={global.primaryButtonText}>Cadastrar</Text>
+                    <Text style={global.primaryButtonText}>Cadastrar-se</Text>
                 </TouchableOpacity>
 
             </AuthContainer>

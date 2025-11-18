@@ -1,5 +1,3 @@
-
-import { HeaderShownContext } from "@react-navigation/elements";
 import { Stack } from "expo-router";
 
 const AuthLayout = () => {
@@ -7,7 +5,7 @@ const AuthLayout = () => {
         <Stack screenOptions={{headerShown: false}}>
             <Stack.Screen name="index" options={{ title: "Login"}}/>
             <Stack.Screen name="register" options={{ title: "Cadastro"}}/>
-            <Stack.Screen name="ressetPassword" options={{ title: "Esqueci minha senha"}}/> 
+            <Stack.Screen name="resetPassword" options={{ title: "Esqueci minha senha"}}/> 
         </Stack>
     )
 }
