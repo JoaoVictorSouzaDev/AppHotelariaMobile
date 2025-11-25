@@ -16,6 +16,7 @@ export const global = StyleSheet.create({
     },
 
     container: {
+        flex: 1,
         paddingHorizontal: width * 0.07,
         paddingTop: height * 0.05,
         paddingBottom: height * 0.05
@@ -175,8 +176,33 @@ export const global = StyleSheet.create({
         zIndex: 10
     },
 
-    tabBar: {
-        
-    }
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        width: "90%",
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+
+    divDateSelector: {
+        alignItems: "center",
+        justifyContent: "center"
+    }, 
 
 });

@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native';
 import { global } from '@/components/ui/styles';
+import { Text, View } from 'react-native';
+import DateSelector from '../ui/DateSelector';
 
 const RenderExplorer = () => {
   return (
     <View style={global.container}>
-      <Text>Pesquisar</Text>
+        <DateSelector/>
     </View>
   )
 }  
