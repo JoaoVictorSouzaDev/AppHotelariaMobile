@@ -1,12 +1,15 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { ReactNode } from "react";
 import { Text, TextInput, TextInputProps, View } from "react-native";
 import { global } from "./styles";
 
+type NameIcon = 
+{lib: "MaterialCommunityIcons"; name: keyof typeof MaterialCommunityIcons.glyphMap}
+
 type Props = TextInputProps & {
     label: string;
     errorText?: string;
-    icon?: keyof typeof MaterialCommunityIcons.glyphMap; 
+    icon?: NameIcon; 
     rightIcon?: ReactNode;
 }
 
@@ -17,7 +20,7 @@ const TextField = ({label, errorText, icon, rightIcon, style, ...props} : Props)
             <View style={[global.inputIcon, errorText ? global.inputError : null]}>
                 {!! icon && (
                     <View>
-                        <MaterialCommunityIcons name={icon} size={18} style={global.icon}/>
+                        <MaterialCommunityIcons name={icon.name} size={18} style={global.icon}/>
                     </View>
                 )}
                 <TextInput

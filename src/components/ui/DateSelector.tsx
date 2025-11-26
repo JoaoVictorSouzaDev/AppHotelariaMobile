@@ -1,93 +1,40 @@
 import { useState } from "react";
-import { Modal, Text, TouchableOpacity, View } from "react-native";
-import DatePicker, { getFormatedDate, getToday} from 'react-native-modern-datepicker';
-import { global } from "./styles";
+import {Dimensions, View } from "react-native";
+import DatePicker, { getToday} from 'react-native-modern-datepicker';
 
 type Props = {
-    label?: string;
+    onSelectDate: (date : string) => void
 }
 
-const DateSelector = ({label}: Props) => {
+const DateSelector = ({onSelectDate} : Props) => {
 
-    const [selectDate, setSelectedDate] = useState("");
-    const tomorrow = new Date(getToday() +1);
-    const startDate = getFormatedDate(tomorrow, 'YYYY/MM/DD');
+    const { width, height } = Dimensions.get("window");
+    const startDate = getToday();
 
     return (
         <View>
-            {!!label && <Text>{label}</Text>}
+
             <DatePicker
+                mode="calendar"
                 options={{
                 mainColor: "#4b0505",
                 textHeaderColor: "#4b0505",
-                textFontSize: 16,
+                textDefaultColor: "#4b0505",
+                textSecondaryColor: "#4b0505",
+                textFontSize: 14,
+                textHeaderFontSize: 16
                 }}
-                style={{borderRadius: 16}}
+                style={{borderRadius: 15, width: width * 0.62, height: height * 0.35}}
                 isGregorian={true}
                 minimumDate={startDate}
-                selected={selectDate}
-                onSelectedChange={setSelectedDate}
+                onSelectedChange={(date) => {
+                    onSelectDate(date);
+                }}
             />
-
 
         </View>
     )
-}
+
+};
 
 export default DateSelector;
-
-/*
-    const DateSelector = ({label}: Props) => {
-
-
-
-        const [open, setOpen] = useState(false)
-        const [date, setDate] = useState('2023/02/08')
-
-        function handleOnPress () {
-            console.log("Abrindo/Fechando Modal. Estado atual:", !open);
-            setOpen(!open)
-        }
-
-        function handleChange(propDate: any) {
-            setDate(propDate);
-        }
-
-        return (
-
-            <View style={global.container}>
-
-                <TouchableOpacity onPress={handleOnPress}>
-                    <Text>Open</Text>
-                </TouchableOpacity>
-
-                <Modal
-                animationType="slide"
-                transparent={true}
-                visible={open}
-                >
-
-                    <View style={global.centeredView}>
-                        <View style={global.modalView}>
-
-                        <DatePicker
-                        mode="calendar"
-                        minimumDate={startDate}
-                        selected={date}
-                        onSelectedChange={handleChange}
-                        isGregorian={true}
-                        />
-
-                        <TouchableOpacity onPress={handleOnPress}>
-                            <Text>Close</Text>
-                        </TouchableOpacity>
-
-                        </View>
-                    </View>    
-                </Modal>
-
-            </View>
-
-        );
-    }
-*/
