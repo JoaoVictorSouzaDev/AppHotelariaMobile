@@ -6,7 +6,7 @@ import AuthContainer from '../ui/AuthContainer';
 import { useState } from 'react';
 
 const RenderExplorer = () => {
-
+ 
   const { width, height } = Dimensions.get("window");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
@@ -15,35 +15,37 @@ const RenderExplorer = () => {
 
   return (
 
-    <AuthContainer>
-      <View>
+    <AuthContainer hasContentStyle={false}>
+      <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
 
-        <TouchableOpacity onPress={() => setCalendar("checkin")}>
-          <TextField
-            label='Chek-In'
-            icon={{lib: "MaterialCommunityIcons", name: "calendar-blank"}}
-            placeholder='Selecione a data de Check-In'
-          />
-        </TouchableOpacity>
+        <View style={{display: 'flex', flexDirection: 'column'}}>
+          <TouchableOpacity onPress={() => setCalendar("checkin")}>
+            <View style={{width: width * 0.42}}>
+              <TextField
+                label='Chek-In'
+                icon={{lib: "MaterialCommunityIcons", name: "calendar-blank"}}
+                placeholder='Selecione a data de Check-In'
+              />
+            </View>
+          </TouchableOpacity>
 
-        {
-        calendar == "checkin" && (
-          <DateSelector onSelectDate={(date) => {setCheckIn(date)}}/>
-        )}
+          {calendar == "checkin" && (<DateSelector onSelectDate={(date) => {setCheckIn(date)}}/>)}
+        </View>  
 
-        <TouchableOpacity onPress={() => setCalendar("checkout")}>
-          <TextField
-            label='Chek-Out'
-            icon={{lib: "MaterialCommunityIcons", name: "calendar-blank"}}
-            placeholder='Selecione a data de Check-Out'
-          />
-        </TouchableOpacity>
-        
-        {
-        calendar == "checkout" && (
-          <DateSelector onSelectDate={(date) => {setCheckOut(date)}}/>
-        )}
+        <View style={{display: 'flex', flexDirection: 'column'}}>
+          <TouchableOpacity onPress={() => setCalendar("checkout")}>
+            <View style={{width: width * 0.42}}>
+              <TextField
+                label='Chek-Out'
+                icon={{lib: "MaterialCommunityIcons", name: "calendar-blank"}}
+                placeholder='Selecione a data de Check-Out'
+              />
+            </View>  
+          </TouchableOpacity>
           
+          {calendar == "checkout" && (<DateSelector onSelectDate={(date) => {setCheckOut(date)}}/>)}
+        </View>  
+
       </View>
     </AuthContainer> 
 
