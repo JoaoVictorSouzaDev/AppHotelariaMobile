@@ -16,7 +16,7 @@ const RenderExplorer = () => {
   return (
 
     <AuthContainer hasContentStyle={false}>
-      <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+      <View style={{display: 'flex', justifyContent: 'center'}}>
 
         <View style={{display: 'flex', flexDirection: 'column'}}>
           <TouchableOpacity onPress={() => setCalendar("checkin")}>
@@ -49,14 +49,14 @@ const RenderExplorer = () => {
       </View>
 
       <RoomCard
-      label='Apartamento'
+      image={require("../../../assets/images/ImageHotel.jpeg")}
+      label='Quarto de Casal'
       icon={{
         lib: "MaterialCommunityIcons",
         name: "bed"
       }}
       description={{
-        title: "Carascterísticas do quarto",
-        text: "1 cama de casal\n2 camas de solteiro",
+        text: "1 Cama de casal\n2 Camas de solteiro",
         price: 180.99
       }}
       />

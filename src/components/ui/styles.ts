@@ -7,7 +7,7 @@ export const global = StyleSheet.create({
 
     safeArea: {
         flex: 1,
-        backgroundColor: "#f3f3f3",
+        backgroundColor: "#ffffffff",
         justifyContent: "center"
     },
 
