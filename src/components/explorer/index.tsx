@@ -1,16 +1,18 @@
-import { Dimensions, TouchableOpacity, View } from 'react-native';
+import { Text, Dimensions, TouchableOpacity, View } from 'react-native';
+import InputSpin from '../ui/InputSpin';
 import DateSelector from '../ui/DateSelector';
 import TextField from '../ui/TextField';
 import AuthContainer from '../ui/AuthContainer';
 import { useState } from 'react';
 import RoomCard from '../ui/RoomCard';
+import { global } from '../ui/styles';
 
 const RenderExplorer = () => {
  
   const { width, height } = Dimensions.get("window");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-
+  const [qntGuests, setQntGuests] = useState("");
   const [calendar, setCalendar] = useState <"checkin" | "checkout">();
 
   return (
@@ -45,6 +47,11 @@ const RenderExplorer = () => {
           
           {calendar == "checkout" && (<DateSelector onSelectDate={(date) => {setCheckOut(date)}}/>)}
         </View>  
+
+        <View>
+          <Text style={global.label}>Número de hóspedes</Text>
+          <InputSpin/>
+        </View>
 
       </View>
 

@@ -66,7 +66,8 @@ export const global = StyleSheet.create({
         fontSize: 16,
         fontWeight: "600",
         color: "#141414ff",
-        marginBottom: height * 0.005
+        marginBottom: height * 0.005,
+        justifyContent: "center"
     },
 
     inputIcon: {
