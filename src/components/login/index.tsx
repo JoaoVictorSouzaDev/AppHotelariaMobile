@@ -74,8 +74,11 @@ const RenderLogin = () => {
                 keyboardType="email-address"
             />
 
+            <Text></Text>
+
             <PasswordField
                 label="Senha"
+                icon={{ lib: "MaterialCommunityIcons", name: "lock" }}
                 placeholder="********"
                 value={password}
                 onChangeText={(input) => setPassword(input)}
@@ -95,7 +98,7 @@ const RenderLogin = () => {
 
             <TouchableOpacity style={[global.primaryButton]}
                 onPress={handleSubmit}
-                disabled={false}
+                disabled={canSubmit ? false : true}
             >
                 <Text style={global.primaryButtonText}>Entrar</Text>
             </TouchableOpacity>

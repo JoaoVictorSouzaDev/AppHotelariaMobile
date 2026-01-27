@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {Dimensions, View } from "react-native";
 import DatePicker, { getToday} from 'react-native-modern-datepicker';
 
@@ -27,9 +26,7 @@ const DateSelector = ({onSelectDate} : Props) => {
                 style={{borderRadius: 15, width: width * 0.62, height: height * 0.35}}
                 isGregorian={true}
                 minimumDate={startDate}
-                onSelectedChange={(date) => {
-                    onSelectDate(date);
-                }}
+                onSelectedChange={(date) => {onSelectDate(date);}}
             />
 
         </View>
