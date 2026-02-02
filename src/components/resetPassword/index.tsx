@@ -5,6 +5,8 @@ import { global } from "../ui/styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
+type NameIcon = 
+{lib: "MaterialCommunityIcons"; name: keyof typeof MaterialCommunityIcons.glyphMap}
 
 const RenderResetPassword = () => {
     
@@ -32,7 +34,7 @@ const RenderResetPassword = () => {
 
                 <TextField
                     label="E-mail"
-                    icon="email"
+                    icon={{lib: "MaterialCommunityIcons", name: "email"}}
                     placeholder="email@email.com"
                     keyboardType="email-address"
                 />

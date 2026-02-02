@@ -60,9 +60,7 @@ const RenderLogin = () => {
 
         <AuthContainer
             title="Grand Hotel Royal"
-            subtitle="Login"
             icon="hotel">
-
             
             <TextField
                 label="E-mail"
@@ -73,8 +71,6 @@ const RenderLogin = () => {
                 errorText={errors.email}
                 keyboardType="email-address"
             />
-
-            <Text></Text>
 
             <PasswordField
                 label="Senha"

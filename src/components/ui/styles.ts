@@ -34,8 +34,8 @@ export const global = StyleSheet.create({
     },
 
     subTitle: {
-        fontSize: 22,
-        fontWeight: "700",
+        fontSize: 18,
+        fontWeight: "500",
         alignSelf: "center",
         marginTop: height * 0.01,
         marginBottom: height * 0.01,
@@ -53,6 +53,11 @@ export const global = StyleSheet.create({
     hotelIcon: {
         fontSize: 42,
         color: "#4b0505"
+    },
+
+    image: {
+        width: 200,
+        height: 200,
     },
 
     inputGroup: {
@@ -115,6 +120,16 @@ export const global = StyleSheet.create({
         marginBottom: height * 0.02
     },
 
+    secondaryButton: {
+        backgroundColor: "#4b0505",
+        borderRadius: 10,
+        padding: width * 0.025,
+        alignItems: "center",
+        marginTop: height * 0.03,
+        marginLeft: width * 0.02,
+        marginRight: width * 0.02,
+    },
+
     primaryButtonDisabled: {
         backgroundColor: "#9ca3af",
         borderRadius: 10,
@@ -149,7 +164,14 @@ export const global = StyleSheet.create({
     passwordReset: {
         fontWeight: "bold",
         color: "#4b0505",
-        fontSize: 14
+        fontSize: 14,
+    },
+
+    passwordResetAccount: {
+        fontWeight: "bold",
+        color: "#4b0505",
+        fontSize: 14,
+        marginTop: height * 0.02
     },
 
     text: {
@@ -206,4 +228,50 @@ export const global = StyleSheet.create({
         justifyContent: "center"
     }, 
 
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20
+    },
+
+    modalContent: {
+        width: '100%',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        borderRadius: 20,
+        padding: 25,
+        elevation: 5,
+    },
+
+    absoluteOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 9999,
+        padding: 20,
+    },
+
+    backgroundTap: {
+        position: 'absolute',
+        width: width,
+        height: height,
+    },
+    
+    modalCard: {
+        width: '100%',
+        backgroundColor: 'white', 
+        borderRadius: 20,
+        padding: 25,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    }
 });

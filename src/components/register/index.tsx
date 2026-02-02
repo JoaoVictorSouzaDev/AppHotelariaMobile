@@ -6,7 +6,6 @@ import { global } from "../ui/styles";
 import { useRouter } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-
 const RenderRegister = () => {
 
     const router = useRouter();
@@ -28,7 +27,7 @@ const RenderRegister = () => {
 
                 <TextField
                     label="E-mail"
-                    icon="email"
+                    icon={{lib: "MaterialCommunityIcons", name: "email"}}
                     placeholder="email@email.com"
                     keyboardType="email-address"
                 />
@@ -45,13 +44,13 @@ const RenderRegister = () => {
 
                 <TextField
                     label="CPF"
-                    icon="file-document"
+                    icon={{lib: "MaterialCommunityIcons", name: "file-document"}}
                     placeholder="999.999.999-99"
                 />
 
                 <TextField
                     label="Telefone"
-                    icon="phone"
+                    icon={{lib: "MaterialCommunityIcons", name: "phone"}}
                     placeholder="(99) 9999-9999"
                 />
 

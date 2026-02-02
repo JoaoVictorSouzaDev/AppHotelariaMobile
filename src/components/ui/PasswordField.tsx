@@ -28,7 +28,7 @@ const PasswordField = (props: Props) => {
         <View> 
             <TextField
                 {...props}
-                icon={props.icon ?? "account-lock"}
+                icon={props.icon ?? {lib: "MaterialCommunityIcons", name: "account-lock"}}
                 secureTextEntry={!show}
                 autoCapitalize="none"
                 autoCorrect={false}
