@@ -11,7 +11,6 @@ function isValidEmail(email: string) {
 }
 
 const RenderLogin = () => {
-    
 
     const router = useRouter();
     const [email, setEmail] = useState("");

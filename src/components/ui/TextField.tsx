@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { ReactNode } from "react";
 import { Text, TextInput, TextInputProps, View } from "react-native";
-import { TextInputMask, TextInputMaskProps } from 'react-native-masked-text'; // Adicione isso
+import { TextInputMask, TextInputMaskProps } from 'react-native-masked-text';
 import { global } from "./styles";
 
 type NameIcon = {
