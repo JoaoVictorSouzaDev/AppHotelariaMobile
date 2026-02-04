@@ -11,6 +11,7 @@ function isValidEmail(email: string) {
 }
 
 const RenderLogin = () => {
+    
 
     const router = useRouter();
     const [email, setEmail] = useState("");
@@ -60,7 +61,9 @@ const RenderLogin = () => {
 
         <AuthContainer
             title="Grand Hotel Royal"
-            icon="hotel">
+            icon="hotel"
+            subtitle="Faça login para continuar.">
+            
             
             <TextField
                 label="E-mail"

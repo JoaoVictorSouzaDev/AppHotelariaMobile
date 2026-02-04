@@ -1,24 +1,24 @@
-import { View, Text, TouchableOpacity, Pressable, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Pressable } from 'react-native';
 import { global } from '@/components/ui/styles';
 import AuthContainer from '../ui/AuthContainer';
 import TextField from "../ui/TextField";
 import PasswordField from "../ui/PasswordField";
 import React, { useState } from 'react';
 
-const { width, height } = Dimensions.get('window');
-
 const RenderAccount = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [nome, setNome] = useState("João Victor Souza");
     const [email, setEmail] = useState("email@email.com");
-    const [cpf, setCpf] = useState("");
     const [telefone, setTelefone] = useState("");
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     return (
         <View style={{ flex: 1 }}> 
             <View style={global.screenContainer}> 
                 <AuthContainer
-                    title={nome}
+                    title="João Souza"
                     subtitle="Atualize seus dados abaixo"
                 >
                     <TextField 
@@ -45,8 +45,7 @@ const RenderAccount = () => {
                         keyboardType="numeric"
                         isMasked={true}
                         type={'cpf'}
-                        value={cpf}
-                        onChangeText={setCpf}
+                        value={"000.000.000-00"}
                     />
 
                     <TextField 
@@ -93,14 +92,20 @@ const RenderAccount = () => {
                         <PasswordField 
                             label="Senha Atual" 
                             placeholder="Digite a senha atual" 
+                            value={currentPassword}
+                            onChangeText={setCurrentPassword}
                         />
                         <PasswordField 
                             label="Nova Senha" 
                             placeholder="Digite a nova senha" 
+                            value={newPassword}
+                            onChangeText={setNewPassword}
                         />
                         <PasswordField 
                             label="Confirme a Nova Senha" 
                             placeholder="Confirme a nova senha" 
+                            value={confirmPassword}
+                            onChangeText={setConfirmPassword}
                         />
 
                         <TouchableOpacity 

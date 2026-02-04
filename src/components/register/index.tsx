@@ -5,10 +5,13 @@ import  TextField  from "../ui/TextField";
 import { global } from "../ui/styles";
 import { useRouter } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useState } from 'react';
 
 const RenderRegister = () => {
 
+    const [cpf, setCpf] = useState("");
     const router = useRouter();
+    const [telefone, setTelefone] = useState("");
 
     return (
 
@@ -42,16 +45,31 @@ const RenderRegister = () => {
                     placeholder="********"
                 />
 
-                <TextField
-                    label="CPF"
-                    icon={{lib: "MaterialCommunityIcons", name: "file-document"}}
-                    placeholder="999.999.999-99"
+                <TextField 
+                    label="CPF" 
+                    icon={{lib: "MaterialCommunityIcons", name: "file-document"}} 
+                    placeholder="000.000.000-00" 
+                    keyboardType="numeric"
+                    isMasked={true}
+                    type={'cpf'}
+                    value={cpf}
+                    onChangeText={setCpf}
                 />
 
-                <TextField
-                    label="Telefone"
-                    icon={{lib: "MaterialCommunityIcons", name: "phone"}}
-                    placeholder="(99) 9999-9999"
+                <TextField 
+                    label="Telefone" 
+                    icon={{lib: "MaterialCommunityIcons", name: "phone"}} 
+                    placeholder="(99) 99999-9999" 
+                    keyboardType="numeric"
+                    isMasked={true}
+                    type={'cel-phone'}
+                    options={{
+                        maskType: 'BRL',
+                        withDDD: true,
+                        dddMask: '(99) '
+                    }}
+                    value={telefone}
+                    onChangeText={setTelefone}
                 />
 
                 <TouchableOpacity style={[global.primaryButton]}>
