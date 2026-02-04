@@ -62,7 +62,6 @@ export const global = StyleSheet.create({
 
     inputGroup: {
         marginBottom: height * 0.005,
-        marginTop: height * 0.01,
         marginLeft: height * 0.01,
         marginRight: height * 0.01
     },
@@ -273,5 +272,12 @@ export const global = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-    }
+    }, 
+
+    separator: {
+        height: 2,
+        backgroundColor: '#e0e0e0',
+        marginVertical: 25,
+        width: '100%',
+    },
 });
