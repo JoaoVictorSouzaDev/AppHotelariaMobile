@@ -41,7 +41,7 @@ const RoomCard = ({image, label, icon, description, onPressReserve}: Props) => {
             )}
 
             <TouchableOpacity style={style.reserveButton} onPress={onPressReserve}>
-                <Text style={style.reserveButtonText}>Reservar Agora</Text>
+                <Text style={style.reserveButtonText}>Realizar Pedido</Text>
             </TouchableOpacity>
         </View>
     </View>
@@ -61,16 +61,16 @@ const style = StyleSheet.create({
     marginHorizontal: 10,
     marginBottom: 20,
   },
-  image: { height: height * 0.22, width: "100%" },
-  textualContent: { padding: 15 },
-  mainLabel: { fontSize: 20, fontWeight: '700', color: '#333', marginBottom: 5 },
-  detailRow: { flexDirection: "row", alignItems: "center", marginBottom: 15 },
-  iconContainer: { marginRight: 8 },
-  descriptionTextContainer: { flex: 1 },
-  descriptionText: { fontSize: 13, color: '#666' },
-  priceContainer: { alignItems: 'flex-end' },
-  price: { fontSize: 18, fontWeight: 'bold', color: "#28a745" },
-  reserveButton: {
+    image: { height: height * 0.22, width: "100%" },
+    textualContent: { padding: 15 },
+    mainLabel: { fontSize: 20, fontWeight: '700', color: '#333', marginBottom: 5 },
+    detailRow: { flexDirection: "row", alignItems: "center", marginBottom: 15 },
+    iconContainer: { marginRight: 8 },
+    descriptionTextContainer: { flex: 1 },
+    descriptionText: { fontSize: 13, color: '#666' },
+    priceContainer: { alignItems: 'flex-end' },
+    price: { fontSize: 18, fontWeight: 'bold', color: "#28a745" },
+    reserveButton: {
     backgroundColor: '#4b0505',
     paddingVertical: 12,
     borderRadius: 12,

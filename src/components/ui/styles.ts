@@ -51,7 +51,7 @@ export const global = StyleSheet.create({
     },
 
     hotelIcon: {
-        fontSize: 42,
+        fontSize: 54,
         color: "#4b0505"
     },
 
