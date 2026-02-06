@@ -18,7 +18,7 @@ const RenderCodeVerification = () => {
         <View style={{ flex: 1 }}> 
             <View style={global.screenContainer}> 
                 <View style={global.divTurnLeft}> 
-                    <TouchableOpacity onPress={() => router.push("/(auth)")}> 
+                    <TouchableOpacity onPress={() => router.push("/(auth)/resetPassword")}> 
                         <MaterialCommunityIcons name="arrow-left" size={25} color="#4b0505" />
                     </TouchableOpacity>
                 </View> 
@@ -46,7 +46,7 @@ const RenderCodeVerification = () => {
                         style={[global.primaryButton]}
                         onPress={() => setModalVisible(true)}
                     >
-                        <Text style={global.primaryButtonText}>Redefinir Senha</Text>
+                        <Text style={global.primaryButtonText}>Inserir</Text>
                     </TouchableOpacity>
                 </AuthContainer>
             </View>

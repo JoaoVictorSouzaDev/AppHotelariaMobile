@@ -40,7 +40,7 @@ const RenderResetPassword = () => {
                 />
 
                 <TouchableOpacity style={[global.primaryButton]}  onPress={() => router.push("/(auth)/codeVerirfication")}>
-                    <Text style={global.primaryButtonText}>Redefinir Senha</Text>
+                    <Text style={global.primaryButtonText}>Enviar Código</Text>
                 </TouchableOpacity>
 
             </AuthContainer>

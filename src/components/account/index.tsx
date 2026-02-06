@@ -46,6 +46,7 @@ const RenderAccount = () => {
                         isMasked={true}
                         type={'cpf'}
                         value={"000.000.000-00"}
+                        style={{ color: "#9b9b9b" }}
                     />
 
                     <TextField 

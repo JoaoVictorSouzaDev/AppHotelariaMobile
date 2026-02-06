@@ -77,13 +77,7 @@ const RenderReservation = () => {
             >
               <Text style={styles.confirmButtonText}>CONFIRMAR RESERVA</Text>
             </TouchableOpacity>
- 
-            <TouchableOpacity
-              style={styles.cancelButton}
-              onPress={() => router.back()}
-            >
-              <Text style={styles.cancelButtonText}>ALTERAR DATAS</Text>
-            </TouchableOpacity>
+        
           </View>
  
         </View>
@@ -167,7 +161,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   confirmButton: {
-    backgroundColor: "rgba(7, 4, 43, 0.94)", // Cor do InputSpin
+    backgroundColor: "rgba(7, 4, 43, 0.94)",
     height: 55,
     borderRadius: 12,
     justifyContent: "center",

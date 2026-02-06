@@ -7,12 +7,14 @@ type Props = {
     minGuests: number;
     maxGuests: number;
     step: number;
-    colorMax?: string;
-    colorMin?: string;
 };
 
-const InputSpin = ({guests, onSelectSpin, minGuests, maxGuests, step, colorMax, colorMin} : Props ) => {
-    const { width, height } = Dimensions.get("window");
+const InputSpin = ({ guests, onSelectSpin, minGuests, maxGuests, step }: Props) => {
+    const { width } = Dimensions.get("window");
+    const vermelhoPadrao = "#4b0505";
+    const cinzaDesativado = "#A9A9A9";
+    const currentLeftColor = guests <= minGuests ? cinzaDesativado : vermelhoPadrao;
+    const currentRightColor = guests >= maxGuests ? cinzaDesativado : vermelhoPadrao;
 
     return (
         <InputSpinner
@@ -21,10 +23,15 @@ const InputSpin = ({guests, onSelectSpin, minGuests, maxGuests, step, colorMax, 
             max={maxGuests}
             min={minGuests}
             step={step}
-            colorMax={colorMax}
-            colorMin={colorMin}
+            colorLeft={currentLeftColor}
+            colorRight={currentRightColor}
+            colorPress={guests >= maxGuests || guests <= minGuests ? undefined : vermelhoPadrao}
+            activeOpacity={1} 
+            background={"transparent"}
+            buttonTextColor={"#FFFFFF"}
             style={{
                 width: width * 0.45,
+                backgroundColor: 'transparent',
             }}
         />
     )

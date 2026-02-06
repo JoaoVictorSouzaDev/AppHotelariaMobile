@@ -68,8 +68,6 @@ const RenderExplorer = () => {
               minGuests={1}
               maxGuests={6}
               step={1}
-              colorMax={"#4b0505"}
-              colorMin={"#4b0505"}
             />
           </View>
           <Text style={[global.label, { marginBottom: 15, marginLeft: width * 0.07 }]}>
