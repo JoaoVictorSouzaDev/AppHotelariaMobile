@@ -8,6 +8,7 @@ import AuthContainer from '../ui/AuthContainer';
 import RoomCard from '../ui/RoomCard';
 import { global } from '../ui/styles';
 import BottomSheet from '../ui/BottomSheet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RenderExplorer = () => {
   const { width } = Dimensions.get("window");
@@ -158,12 +159,30 @@ const RenderExplorer = () => {
                   marginTop: 30, 
                   alignItems: 'center' 
                 }}
-                onPress={() => {
-                  // Lógica para confirmar a reserva pode ser adicionada aqui
-                  setIsReserveModalOpen(false);
+                onPress={async () => {
+                  try {
+                    const novaReserva = {
+                      id: Date.now().toString(),
+                      label: selectedRoom.label,
+                      text: selectedRoom.text,
+                      price: selectedRoom.price,
+                      checkIn: checkIn,
+                      checkOut: checkOut,
+                      guests: qntGuests
+                    };
+
+                    const salvas = await AsyncStorage.getItem('@reservas');
+                    const lista = salvas ? JSON.parse(salvas) : [];
+                    lista.push(novaReserva);
+
+                    await AsyncStorage.setItem('@reservas', JSON.stringify(lista));
+                    setIsReserveModalOpen(false);
+                  } catch (e) {
+                    console.error(e);
+                  }
                 }}
               >
-                <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Confirmar Pedido</Text>
+                <Text style={{ color: '#fff', fontWeight: 'bold' , fontSize: 16}}>Confirmar Pedido</Text>
               </TouchableOpacity>
             </View>
           )}

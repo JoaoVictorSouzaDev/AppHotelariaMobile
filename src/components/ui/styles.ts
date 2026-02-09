@@ -8,7 +8,7 @@ export const global = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: "#ffffffff",
-        justifyContent: "center"
+        justifyContent: "flex-start"
     },
 
     keyboardAvoid: {
@@ -19,7 +19,7 @@ export const global = StyleSheet.create({
         flex: 1,
         paddingHorizontal: width * 0.07,
         paddingTop: height * 0.05,
-        paddingBottom: height * 0.05
+        paddingBottom: 0
     },
 
     header: {
