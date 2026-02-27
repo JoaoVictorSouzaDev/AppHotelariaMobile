@@ -5,13 +5,15 @@ import AuthContainer from "../ui/AuthContainer";
 import PasswordField from "../ui/PasswordField";
 import TextField from "../ui/TextField";
 import { global } from "../ui/styles";
+import { useAuth } from "@/context/AuthContext";
 
-function isValidEmail(email: string) {
+function isValidEmail(email: string) { 
     return /^[^\s@&='"!]@[^\s@&='"!].[^\s@&='"!]$/.test(email);
 }
 
 const RenderLogin = () => {
 
+    const { signIn } = useAuth();
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -31,30 +33,16 @@ const RenderLogin = () => {
 
     const handleSubmit = async () => {
         try {
-        setLoading(true);
-        console.log("[LOGIN] Tentando login com: ", {
-            email: email,
-            password: password
-        });
-        await new Promise((req) => setTimeout(req, 2000));
-        if (email === "joaosouza@gmail.com" && password === "12345678") {
+            setLoading(true);
+
+            await signIn(email.trim(), password.trim());
+
             Alert.alert("Login bem-sucedido!");
             router.replace("/(tabs)/explorer");
         }
-        else {
-            Alert.alert("Login inválido!");
-            return;
-        }      
-        }
-        catch (erro) {
-        Alert.alert("Erro", "Falha ao tentar logar!");
-        }
-        finally {
-            setLoading(false);
-        }
+        catch (erro) {Alert.alert("Erro", "Falha ao tentar logar!");}
+        finally {setLoading(false);}
     };
-    
-    const { width, height } = Dimensions.get("window");
 
     return (
 

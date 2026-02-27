@@ -1,8 +1,16 @@
+import { useAuth } from "@/context/AuthContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 
 const TabLayout = () => {
-  return (
+
+const {token, isLoading} = useAuth();
+
+if (!token) {
+    return <Redirect href="/(auth)"/>
+}
+
+    return (
         <Tabs screenOptions={{
             tabBarActiveTintColor: '#4b0505',
             headerShown: false,
@@ -37,6 +45,6 @@ const TabLayout = () => {
             />
 
         </Tabs>
-  );
+    );
 }
 export default TabLayout;

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useMemo} from 'react';
+import React, { createContext, useState, useEffect, useMemo, useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from  '../constants/api';
 
@@ -46,12 +46,23 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
     }
 
     //SingOut
-    async function signOut() {}
+    async function signOut() {
+        await AsyncStorage.removeItem("token");
+        setToken(null);
+    }
 
     const value = useMemo (
         () => ({token, isLoading, signIn, signOut}), [token, isLoading]
     );
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuth deve ser usado dentro de um AuthProvider");
+    }
+    return context;
 }
 
 export default AuthProvider;
