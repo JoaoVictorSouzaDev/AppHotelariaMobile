@@ -139,6 +139,12 @@ export const global = StyleSheet.create({
         fontSize: 16,
         fontWeight: 700
     },
+
+    secondaryButtonText: {
+        color: "#4b0505",
+        fontSize: 16,
+        fontWeight: 700
+    },
     
     defaultText: {
         paddingLeft: width * 0.02,

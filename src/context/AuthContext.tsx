@@ -7,6 +7,7 @@ type AuthContextProps = {
     isLoading: boolean;
     signIn: (email: string, senha: string) => Promise<void>;
     signOut: () => void;
+    createAccount: (nome: string, email: string, senha: string, cpf: string, telefone: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -26,8 +27,10 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
         })();
     }, []);
 
+    //SignIn
     async function signIn(email: string, senha: string) {
-        const res = await fetch(`${API_URL}/login`, {
+
+        const res = await fetch(`${API_URL}/client/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,8 +54,27 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
         setToken(null);
     }
 
+    //CreateAccount
+    async function createAccount(nome: string, email: string, senha: string, cpf: string, telefone: string) {
+        const res = await fetch(`${API_URL}/client`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome, email, senha, cpf, telefone }), // 'nome' incluído aqui
+        });
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => null);
+            throw new Error(err?.erro || 'Erro ao criar conta');
+        }
+        const tokenAPI: string = await res.json();
+        await AsyncStorage.setItem("token", tokenAPI);
+        setToken(tokenAPI);
+        
+    }
+    
+
     const value = useMemo (
-        () => ({token, isLoading, signIn, signOut}), [token, isLoading]
+        () => ({token, isLoading, signIn, signOut, createAccount}), [token, isLoading]
     );
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

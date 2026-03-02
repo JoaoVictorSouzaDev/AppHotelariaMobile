@@ -4,8 +4,18 @@ import AuthContainer from '../ui/AuthContainer';
 import TextField from "../ui/TextField";
 import PasswordField from "../ui/PasswordField";
 import React, { useState } from 'react';
+import { useRouter } from 'expo-router';
+import { useAuth } from '@/context/AuthContext';
 
 const RenderAccount = () => {
+
+    const { signOut } = useAuth();
+    const router = useRouter();
+    const handleLogout = async () => {
+      signOut();
+      router.replace("/(auth)");
+    }
+
     const [modalVisible, setModalVisible] = useState(false);
     const [nome, setNome] = useState("João Victor Souza");
     const [email, setEmail] = useState("email@email.com");
@@ -75,6 +85,13 @@ const RenderAccount = () => {
                     >
                         <Text style={global.passwordResetAccount}>Alterar minha senha</Text>
                     </TouchableOpacity>
+                    
+                    <View>
+                        <TouchableOpacity onPress={handleLogout} style={{ alignItems: 'center', justifyContent: 'center'}}>
+                            <Text style={global.secondaryButtonText}>Logout</Text>
+                        </TouchableOpacity>
+                    </View>
+
                 </AuthContainer>
             </View>
 
