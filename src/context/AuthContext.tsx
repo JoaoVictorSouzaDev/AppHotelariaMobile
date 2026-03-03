@@ -71,6 +71,8 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
         setToken(tokenAPI);
         
     }
+
+    //Auth
     
 
     const value = useMemo (
@@ -78,6 +80,7 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
     );
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
+
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
