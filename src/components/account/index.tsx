@@ -1,34 +1,101 @@
-import { View, Text, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, TouchableOpacity, Pressable, Alert, ActivityIndicator } from 'react-native';
 import { global } from '@/components/ui/styles';
 import AuthContainer from '../ui/AuthContainer';
 import TextField from "../ui/TextField";
 import PasswordField from "../ui/PasswordField";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 
 const RenderAccount = () => {
 
-    const { signOut } = useAuth();
+    const { signOut, updateClient, user } = useAuth(); 
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [nome, setNome] = useState(user?.nome || "");
+    const [email, setEmail] = useState(user?.email || "");
+    const [telefone, setTelefone] = useState(user?.telefone || "");
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    console.log("DADOS DO USUÁRIO NO CONTEXTO:", user);
+
+    useEffect(() => {
+        if (user) {
+            setNome(user.nome);
+            setEmail(user.email);
+            setTelefone(user.telefone || "");
+        }
+    }, [user]);
+
     const handleLogout = async () => {
       signOut();
       router.replace("/(auth)");
     }
 
-    const [modalVisible, setModalVisible] = useState(false);
-    const [nome, setNome] = useState("João Victor Souza");
-    const [email, setEmail] = useState("email@email.com");
-    const [telefone, setTelefone] = useState("");
-    const [currentPassword, setCurrentPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const handleUpdateData = async () => {
+        if (!nome || !email) {
+            Alert.alert("Erro", "Nome e E-mail são obrigatórios.");
+            return;
+        }
+
+        if (!user?.id) {
+            Alert.alert("Erro", "Usuário não identificado.");
+            return;
+        }
+
+        try {
+            setLoading(true);
+        
+            await updateClient(user.id, {
+                nome: nome,
+                email: email,
+                telefone: telefone
+            });
+
+            Alert.alert("Sucesso", "Seus dados foram atualizados com sucesso!");
+        } catch (error: any) {
+            Alert.alert("Erro ao atualizar", error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const handleUpdatePassword = async () => {
+        if (newPassword !== confirmPassword) {
+            Alert.alert("Erro", "A nova senha e a confirmação não coincidem.");
+            return;
+        }
+
+        if (!user?.id) return;
+
+        try {
+            setLoading(true);
+
+            // Usando o user.id dinâmico do contexto
+            await updateClient(user.id, {
+                senha: newPassword
+            });
+
+            Alert.alert("Sucesso", "Senha alterada com sucesso!");
+            setModalVisible(false);
+            setCurrentPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+        } catch (error: any) {
+            Alert.alert("Erro", "Não foi possível alterar a senha.");
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <View style={{ flex: 1 }}> 
             <View style={global.screenContainer}> 
                 <AuthContainer
-                    title="João Souza"
+                    title="Seu Perfil"
                     subtitle="Atualize seus dados abaixo"
                 >
                     <TextField 
@@ -55,8 +122,9 @@ const RenderAccount = () => {
                         keyboardType="numeric"
                         isMasked={true}
                         type={'cpf'}
-                        value={"000.000.000-00"}
+                        value={user?.cpf || "000.000.000-00"} // Valor real do banco
                         style={{ color: "#9b9b9b" }}
+                        editable={false} 
                     />
 
                     <TextField 
@@ -66,17 +134,20 @@ const RenderAccount = () => {
                         keyboardType="numeric"
                         isMasked={true}
                         type={'cel-phone'}
-                        options={{
-                            maskType: 'BRL',
-                            withDDD: true,
-                            dddMask: '(99) '
-                        }}
                         value={telefone}
                         onChangeText={setTelefone}
                     />
 
-                    <TouchableOpacity style={[global.secondaryButton]}>
-                        <Text style={global.primaryButtonText}>Alterar Dados</Text>
+                    <TouchableOpacity 
+                        style={[global.secondaryButton, loading && { opacity: 0.7 }]}
+                        onPress={handleUpdateData}
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <ActivityIndicator color="#fff" />
+                        ) : (
+                            <Text style={global.primaryButtonText}>Alterar Dados</Text>
+                        )}
                     </TouchableOpacity>
 
                     <TouchableOpacity 
@@ -86,7 +157,7 @@ const RenderAccount = () => {
                         <Text style={global.passwordResetAccount}>Alterar minha senha</Text>
                     </TouchableOpacity>
                     
-                    <View>
+                    <View style={{ marginTop: 20 }}>
                         <TouchableOpacity onPress={handleLogout} style={{ alignItems: 'center', justifyContent: 'center'}}>
                             <Text style={global.secondaryButtonText}>Logout</Text>
                         </TouchableOpacity>
@@ -128,11 +199,14 @@ const RenderAccount = () => {
 
                         <TouchableOpacity 
                             style={[global.secondaryButton, { marginTop: 25 }]}
-                            onPress={() => {
-                                setModalVisible(false);
-                            }}
+                            onPress={handleUpdatePassword}
+                            disabled={loading}
                         >
-                            <Text style={global.primaryButtonText}>Confirmar Senha</Text>
+                             {loading ? (
+                                <ActivityIndicator color="#fff" />
+                            ) : (
+                                <Text style={global.primaryButtonText}>Confirmar Senha</Text>
+                            )}
                         </TouchableOpacity>
                     </View>
                 </View>

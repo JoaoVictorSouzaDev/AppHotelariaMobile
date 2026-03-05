@@ -88,10 +88,7 @@ const RenderLogin = () => {
             >
                 <Text style={global.primaryButtonText}>Entrar</Text>
             </TouchableOpacity>
-            
-            <TouchableOpacity style={global.passwordResetDeiv} onPress={() => router.push("/(auth)/resetPassword")}>
-                <Text style={global.passwordReset}>Esqueci minha senha</Text>
-            </TouchableOpacity>
+        
 
         </AuthContainer>
 
