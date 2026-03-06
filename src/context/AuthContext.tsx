@@ -14,6 +14,7 @@ type AuthContextProps = {
     createAccount: (nome: string, email: string, senha: string, cpf: string, telefone: string) => Promise<void>;
     searchRoom: (inicio: string, fim: string, qtdPessoas: number) => Promise<any[]>;
     updateClient: (id: number, data: object) => Promise<void>;
+    createReserve: (pagamento: string, adicionais: number, quartos: any[]) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -39,30 +40,30 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
 
     //SignIn
     async function signIn(email: string, senha: string) {
-    const res = await fetch(`${API_URL}/client/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, senha }),
-    });
+        const res = await fetch(`${API_URL}/client/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, senha }),
+        });
 
-    if (!res.ok) throw new Error('Erro no login');
+        if (!res.ok) throw new Error('Erro no login');
 
-    const tokenAPI = await res.json();
+        const tokenAPI = await res.json();
 
-    const decoded: any = jwtDecode(tokenAPI);
-    
-    const userData = {
-        id: decoded.id, 
-        nome: decoded.nome || "", 
-        email: decoded.email || ""
-    };
+        const decoded: any = jwtDecode(tokenAPI);
+        
+        const userData = {
+            id: decoded.id, 
+            nome: decoded.nome || "", 
+            email: decoded.email || ""
+        };
 
-    await AsyncStorage.setItem("token", tokenAPI);
-    await AsyncStorage.setItem("user", JSON.stringify(userData));
-    
-    setToken(tokenAPI);
-    setUser(userData);
-}
+        await AsyncStorage.setItem("token", tokenAPI);
+        await AsyncStorage.setItem("user", JSON.stringify(userData));
+        
+        setToken(tokenAPI);
+        setUser(userData);
+    }
 
     //SingOut
     async function signOut() {
@@ -106,33 +107,65 @@ const AuthProvider = ({children}: {children: React.ReactNode}) => {
     
     //Update client
     async function updateClient(id: number, data: object) {
-    try {
-        const res = await fetch(`${API_URL}/client/${id}`, {
-            method: "PUT",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
+        try {
+            const res = await fetch(`${API_URL}/client/${id}`, {
+                method: "PUT",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
 
-        const result = await res.json();
+            const result = await res.json();
 
-        if (!res.ok) {
-            throw new Error(result.erro || 'Erro ao atualizar dados');
+            if (!res.ok) {
+                throw new Error(result.erro || 'Erro ao atualizar dados');
+            }
+
+            const updatedUser = { ...user, ...data } as User;
+            setUser(updatedUser);
+            await AsyncStorage.setItem("user", JSON.stringify(updatedUser));
+
+            console.log("Sucesso:", result.mensagem);
+        } catch (error: any) {
+            console.error("ERRO NO UPDATE_CLIENT:", error);
+            throw error;
         }
-
-        const updatedUser = { ...user, ...data } as User;
-        setUser(updatedUser);
-        await AsyncStorage.setItem("user", JSON.stringify(updatedUser));
-
-        console.log("Sucesso:", result.mensagem);
-    } catch (error: any) {
-        console.error("ERRO NO UPDATE_CLIENT:", error);
-        throw error;
     }
-}
+
+
+
+    async function createReserve(pagamento: string, adicionais: number, quartos: any[]) {
+        if (!token) throw new Error("Usuário não autenticado");
+
+        try {
+            const res = await fetch(`${API_URL}/reserve`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // O token que você já tem no context
+                },
+                body: JSON.stringify({
+                    pagamento,
+                    adicionais,
+                    quartos
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.message || 'Erro ao realizar reserva');
+            }
+
+            return data;
+        } catch (error: any) {
+            console.error("Erro na reserva:", error);
+            throw error;
+        }
+    }
     
 
     const value = useMemo (
-        () => ({token, isLoading, signIn, signOut, createAccount, searchRoom, updateClient, user}), [token, isLoading]
+        () => ({token, isLoading, signIn, signOut, createAccount, searchRoom, updateClient, user, createReserve}), [token, isLoading]
     );
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

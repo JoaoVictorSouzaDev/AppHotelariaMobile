@@ -74,7 +74,7 @@ const RenderAccount = () => {
         try {
             setLoading(true);
 
-            // Usando o user.id dinâmico do contexto
+
             await updateClient(user.id, {
                 senha: newPassword
             });
@@ -95,14 +95,13 @@ const RenderAccount = () => {
         <View style={{ flex: 1 }}> 
             <View style={global.screenContainer}> 
                 <AuthContainer
-                    title="Seu Perfil"
+                    title="Seu perfil"
                     subtitle="Atualize seus dados abaixo"
                 >
                     <TextField 
                         label="Nome" 
                         icon={{lib: "MaterialCommunityIcons", name: "account"}} 
                         placeholder="Nome completo" 
-                        value={nome}
                         onChangeText={setNome}
                     />
 
@@ -111,20 +110,7 @@ const RenderAccount = () => {
                         icon={{lib: "MaterialCommunityIcons", name: "email"}} 
                         placeholder="email@email.com" 
                         keyboardType="email-address"
-                        value={email}
                         onChangeText={setEmail}
-                    />
-
-                    <TextField 
-                        label="CPF" 
-                        icon={{lib: "MaterialCommunityIcons", name: "file-document"}} 
-                        placeholder="000.000.000-00" 
-                        keyboardType="numeric"
-                        isMasked={true}
-                        type={'cpf'}
-                        value={user?.cpf || "000.000.000-00"} // Valor real do banco
-                        style={{ color: "#9b9b9b" }}
-                        editable={false} 
                     />
 
                     <TextField 

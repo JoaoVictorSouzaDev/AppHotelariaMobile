@@ -9,7 +9,7 @@ import { global } from "../ui/styles";
 import { useAuth } from "@/context/AuthContext";
 
 const RenderRegister = () => {
-    const { createAccount } = useAuth();
+    const { createAccount , signIn } = useAuth();
     const router = useRouter();
 
     const [nome, setNome] = useState("");
@@ -40,6 +40,8 @@ const RenderRegister = () => {
                 cpf.replace(/\D/g, ''),
                 telefone.replace(/\D/g, '')
             );
+            
+            await signIn(email.trim(), senha.trim());
 
             Alert.alert("Sucesso", "Conta criada com sucesso!");
             router.replace("/(tabs)/explorer"); 
