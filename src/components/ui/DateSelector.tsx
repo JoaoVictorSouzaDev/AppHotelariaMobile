@@ -9,6 +9,9 @@ const DateSelector = ({onSelectDate} : Props) => {
 
     const { width, height } = Dimensions.get("window");
     const startDate = getToday();
+    const handleChange = (date: string) => {
+        onSelectDate?.(date);
+    };
 
     return (
         <View>
@@ -26,7 +29,8 @@ const DateSelector = ({onSelectDate} : Props) => {
                 style={{borderRadius: 15, width: width * 0.62, height: height * 0.35}}
                 isGregorian={true}
                 minimumDate={startDate}
-                onSelectedChange={(date) => {onSelectDate(date);}}
+                onSelectedChange={handleChange}
+                onDateChange={handleChange}
             />
 
         </View>
