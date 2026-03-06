@@ -1,6 +1,8 @@
-import { Text, Dimensions, TouchableOpacity, View, Pressable, ScrollView, ActivityIndicator, Alert } from 'react-native';
+import { Text, Dimensions, TouchableOpacity, View, Pressable, ScrollView, ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import { Modal } from 'react-native';
+import { MaterialCommunityIcons } from "@expo/vector-icons"; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import InputSpin from '../ui/InputSpin';
 import DateSelector from '../ui/DateSelector';
 import TextField from '../ui/TextField';
@@ -10,9 +12,10 @@ import { global } from '../ui/styles';
 import BottomSheet from '../ui/BottomSheet';
 import { useAuth } from "@/context/AuthContext";
 
+const { width } = Dimensions.get("window");
+
 const RenderExplorer = () => {
   const { searchRoom } = useAuth();
-  const { width } = Dimensions.get("window");
   
   const [isSearched, setIsSearched] = useState(false);
   const [checkIn, setCheckIn] = useState("");
@@ -45,13 +48,43 @@ const RenderExplorer = () => {
       const data = await searchRoom(checkIn, checkOut, qntGuests);
       setAvailableRooms(data || []);
     } catch (error: any) {
-      if (!error.message.includes("encontrado")) {
-        Alert.alert("Erro", "Ocorreu um problema ao buscar quartos.");
-      }
       setAvailableRooms([]);
     } finally {
       setLoading(false);
       setIsSearched(true);
+    }
+  };
+
+  const handleAddToCart = async () => {
+    try {
+      const storedData = await AsyncStorage.getItem('@reservas');
+      const currentReservations = storedData ? JSON.parse(storedData) : [];
+
+      const newReservation = {
+        id: selectedRoom.id,
+        label: selectedRoom.nome,
+        checkIn: checkIn,
+        checkOut: checkOut,
+        price: selectedRoom.preco,
+        text: `Quarto nº ${selectedRoom.numero}\n${qntGuests} Hóspedes`
+      };
+
+
+      const isAlreadyInCart = currentReservations.some((item: any) => item.id === newReservation.id);
+      
+      if (isAlreadyInCart) {
+        Alert.alert("Atenção", "Este quarto já está no seu carrinho.");
+        return;
+      }
+
+      const updatedReservations = [...currentReservations, newReservation];
+      await AsyncStorage.setItem('@reservas', JSON.stringify(updatedReservations));
+
+      setIsReserveModalOpen(false);
+      Alert.alert("Sucesso", "Quarto adicionado ao carrinho!");
+
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível adicionar ao carrinho.");
     }
   };
 
@@ -98,30 +131,25 @@ const RenderExplorer = () => {
           <TouchableOpacity 
             activeOpacity={0.7}
             disabled={loading}
-            style={{
-              backgroundColor: '#4b0505',
-              paddingVertical: 15,
-              borderRadius: 12,
-              marginHorizontal: width * 0.07,
-              marginBottom: 30,
-              alignItems: 'center',
-              opacity: loading ? 0.6 : 1
-            }}
+            style={[styles.searchButton, loading && { opacity: 0.8 }]}
             onPress={handleSearch}
           >
-            {loading ? <ActivityIndicator color="#fff" /> : (
-              <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>
-                Consultar Disponibilidade
-              </Text>
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.searchButtonText}>Consultar Disponibilidade</Text>
             )}
           </TouchableOpacity>
 
-          {loading ? (
-            <View style={{ marginTop: 30 }}>
-              <ActivityIndicator size="large" color="#4b0505" />
-              <Text style={{ textAlign: 'center', marginTop: 10, color: '#666' }}>Buscando quartos...</Text>
+          {(!isSearched && !loading) ? (
+            <View style={styles.initialContainer}>
+              <MaterialCommunityIcons name="calendar-search" size={60} color="#DDD" />
+              <Text style={styles.initialTitle}>Encontre sua reserva</Text>
+              <Text style={styles.initialSubtitle}>
+                Escolha as datas para verificar os quartos disponíveis.
+              </Text>
             </View>
-          ) : isSearched && (
+          ) : (isSearched && !loading) && (
             <View style={{ marginTop: 10 }}>
               {availableRooms.length > 0 ? (
                 <>
@@ -152,21 +180,10 @@ const RenderExplorer = () => {
                   </ScrollView>
                 </>
               ) : (
-                <View style={{ 
-                  marginHorizontal: width * 0.07, 
-                  padding: 30, 
-                  backgroundColor: '#f2f2f2', 
-                  borderRadius: 15, 
-                  alignItems: 'center',
-                  borderWidth: 1,
-                  borderColor: '#ddd',
-                  borderStyle: 'dashed'
-                }}>
-                  <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#4b0505' }}>
-                    Ops! Tudo lotado.
-                  </Text>
-                  <Text style={{ textAlign: 'center', color: '#666', marginTop: 5 }}>
-                    Não há quartos disponíveis para estas datas ou número de pessoas.
+                <View style={styles.emptyContainer}>
+                  <Text style={styles.emptyTitle}>Ops! Tudo lotado.</Text>
+                  <Text style={styles.emptySubtitle}>
+                    Tente outras datas ou menos hóspedes.
                   </Text>
                 </View>
               )}
@@ -186,43 +203,30 @@ const RenderExplorer = () => {
       </Modal>
 
       <BottomSheet visible={isReserveModalOpen} onClose={() => setIsReserveModalOpen(false)}>
-        {/* ... conteúdo do BottomSheet igual ao anterior ... */}
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#4b0505', marginBottom: 20 }}>
-            Confirmar Reserva
-          </Text>
+          <Text style={styles.modalTitle}>Confirmar Reserva</Text>
           {selectedRoom && (
             <View>
-              <View style={{ backgroundColor: '#f8f8f8', padding: 15, borderRadius: 15, marginBottom: 20 }}>
+              <View style={styles.roomInfoBox}>
                 <Text style={{ fontSize: 18, fontWeight: '700' }}>{selectedRoom.nome}</Text>
                 <Text style={{ color: '#666', marginTop: 5 }}>Quarto nº {selectedRoom.numero}</Text>
               </View>
               <View style={{ gap: 12 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ fontSize: 16 }}>Check-in:</Text>
-                  <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{checkIn}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ fontSize: 16 }}>Check-out:</Text>
-                  <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{checkOut}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ fontSize: 16 }}>Hóspedes:</Text>
-                  <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{qntGuests}</Text>
-                </View>
+                <View style={styles.rowInfo}><Text>Check-in:</Text><Text style={styles.boldText}>{checkIn}</Text></View>
+                <View style={styles.rowInfo}><Text>Check-out:</Text><Text style={styles.boldText}>{checkOut}</Text></View>
+                <View style={styles.rowInfo}><Text>Hóspedes:</Text><Text style={styles.boldText}>{qntGuests}</Text></View>
               </View>
               <View style={[global.separator, { marginVertical: 20 }]} />
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={styles.rowInfo}>
                 <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Total:</Text>
-                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#28a745' }}>
-                  R$ {Number(selectedRoom.preco).toFixed(2)}
-                </Text>
+                <Text style={styles.totalText}>R$ {Number(selectedRoom.preco).toFixed(2)}</Text>
               </View>
+              
               <TouchableOpacity 
-                style={{ backgroundColor: '#4b0505', padding: 18, borderRadius: 15, marginTop: 30, alignItems: 'center' }}
-                onPress={() => setIsReserveModalOpen(false)}
+                style={styles.confirmButton}
+                onPress={handleAddToCart}
               >
-                <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Confirmar Pedido</Text>
+                <Text style={styles.confirmButtonText}>Adicionar ao Carrinho</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -231,5 +235,45 @@ const RenderExplorer = () => {
     </AuthContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  searchButton: {
+    backgroundColor: '#4b0505',
+    height: 55,
+    borderRadius: 12,
+    marginHorizontal: width * 0.07,
+    marginBottom: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  searchButtonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  initialContainer: {
+    marginHorizontal: width * 0.07,
+    padding: 40,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#F0F0F0',
+  },
+  initialTitle: { fontSize: 18, fontWeight: 'bold', color: '#4b0505', marginTop: 15 },
+  initialSubtitle: { textAlign: 'center', color: '#999', marginTop: 8 },
+  emptyContainer: {
+    marginHorizontal: width * 0.07,
+    padding: 30,
+    backgroundColor: '#f2f2f2',
+    borderRadius: 15,
+    alignItems: 'center',
+  },
+  emptyTitle: { fontSize: 18, fontWeight: 'bold', color: '#4b0505' },
+  emptySubtitle: { textAlign: 'center', color: '#666', marginTop: 5 },
+  modalTitle: { fontSize: 24, fontWeight: 'bold', color: '#4b0505', marginBottom: 20 },
+  roomInfoBox: { backgroundColor: '#f8f8f8', padding: 15, borderRadius: 15, marginBottom: 20 },
+  rowInfo: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  boldText: { fontWeight: 'bold', fontSize: 16 },
+  totalText: { fontSize: 22, fontWeight: 'bold', color: '#28a745' },
+  confirmButton: { backgroundColor: '#4b0505', padding: 18, borderRadius: 15, marginTop: 30, alignItems: 'center' },
+  confirmButtonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 }
+});
 
 export default RenderExplorer;
